@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+    <ion-button  expand="block" color="warning" routerLink="../registro" class="animate__animated animate__fadeInDown">  
+      Registro
+    </ion-button>  
+    </ion-buttons>
+    <ion-title>
+      Iniciar Sesión
+    </ion-title>
+
+    
+    
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+<ion-img src="../assets/images/Sin_titulo_1.png" class=" animate__animated animate__fadeIn"></ion-img>
+  <form miFormulario="ngForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Usuario</ion-label>
+      <ion-input type="text" class=" animate__animated animate__fadeIn" name="usr" required [(ngModel)]="usuario.username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" class=" animate__animated animate__fadeIn" name="psw" required [(ngModel)]="usuario.password"></ion-input>
+    </ion-item>
+    <br>
+    <ion-button type="submit"  expand="block" color="warning" class="animate__animated animate__fadeInUp" >
+      Iniciar sesión
+    </ion-button>
+
+
+  </form>
+
+  
+
+<a routerLink="../pag4"><p id="textoctr" class="animate__animated animate__fadeInUp">¿Ha olvidado su contraseña?</p></a>
+
+
+</ion-content>
+
+
+
+<app-footer></app-footer>

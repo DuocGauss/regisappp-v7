@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+  <ion-back-button defaultHref="home" text="volver" mode="ios"></ion-back-button>
+  </ion-buttons>
+    <ion-title>Verificación</ion-title>
+    <ion-icon slot="end" [name]="icono" class="ion-padding" color="primary"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+<ion-img src="../assets/images/Sin_titulo_1.png" class="animate__animated animate__fadeIn"></ion-img>
+<ion-text color="white">
+  <p class="animate__animated animate__fadeInRight">Ingrese tu código de verificación enviado a tu correo institucional</p>
+</ion-text>
+
+<ion-item>
+  <ion-label position="floating" class="animate__animated animate__fadeIn">Código</ion-label>
+  <ion-input type="number" class="animate__animated animate__fadeIn"  required ></ion-input>
+</ion-item>
+
+<ion-button expand="block" color="warning" routerLink="../pag2" class="animate__animated animate__fadeInLeft" >   
+  Enviar
+</ion-button>
+
+</ion-content>
+
+<app-footer></app-footer>

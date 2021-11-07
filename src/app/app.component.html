@@ -1,0 +1,41 @@
+<ion-app>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+    <ion-menu-toggle>
+      <ion-list lines="none" *ngFor="let item of opciones" >
+        
+        <ion-item [routerLink]="item.destino" detail>  <!--Menu con Ngfor-->
+          {{item.texto}}
+          <ion-icon slot="start" [name]="item.icono"></ion-icon>
+        </ion-item>
+        
+        <!-- <ion-item routerLink="home" detail>            Menu sin ngfor
+          Home
+          <ion-icon slot="start" name="home"></ion-icon>
+        </ion-item>
+        <ion-item routerLink="pag2" detail>
+          Alertas
+        <ion-icon slot="start" name="alert-circle"></ion-icon>
+        </ion-item>
+        <ion-item routerLink="pag3" detail>
+          Listas
+          <ion-icon slot="start" name="list"></ion-icon>
+        </ion-item>
+        <ion-item routerLink="pag4" detail>
+          Apertura
+          <ion-icon slot="start" name="aperture"></ion-icon>
+        </ion-item> -->
+      </ion-list>
+
+    </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

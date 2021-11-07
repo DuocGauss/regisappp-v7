@@ -1,0 +1,7 @@
+{
+  "name": "appblanco",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

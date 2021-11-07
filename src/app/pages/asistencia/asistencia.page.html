@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+  </ion-buttons>
+    <ion-title>Asistencia</ion-title>
+    <ion-icon slot="end" [name]="icono" class="ion-padding" color="primary"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<form #formulario="ngForm" (ngSubmit)="onSubmit()">
+  <ion-item>
+    <ion-label position="floating" class="animate__animated animate__fadeIn">Nombre asignatura</ion-label>
+    <ion-input required name="username" type="text" class="animate__animated animate__fadeIn" [(ngModel)]="register.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" class="animate__animated animate__fadeIn">Sección</ion-label>
+    <ion-input required name="username" type="text" class="animate__animated animate__fadeIn" [(ngModel)]="register.seccion"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" class="animate__animated animate__fadeIn">Fecha</ion-label>
+    <ion-input required name="password" class="animate__animated animate__fadeIn" type="text" [(ngModel)]="register.fecha"></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="warning" class="animate__animated animate__fadeInUp" type="submit" [disabled]="formulario.invalid" (click)="presentAlert()">
+    Enviar
+  </ion-button>
+</form>
+
+</ion-content>
+
+
+<app-footer></app-footer>
