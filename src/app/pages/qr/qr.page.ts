@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import { AlertController, NavController } from '@ionic/angular';
-
+import { Platform } from '@ionic/angular'
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 
@@ -12,29 +12,37 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 })
 export class QrPage  {
 
-  
+  scanSub: any;
+  qrText: string;
 
-  constructor(private alertController:AlertController, private navCtrl:NavController,  private qr:QRScanner) { 
+
+  constructor(
+    public platform: Platform,
+    private qr: QRScanner,
+    private alertController:AlertController, 
+    private navCtrl:NavController
+  ) {
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      document.getElementsByTagName('body')[0].style.opacity = '1';
+      this.scanSub.unsubscribe();
+    });
   }
   
 
-  ngOnInit() {
-
-    this.StartScanning();
-}
+  
 
 
 async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Exito!',
       subHeader: 'QR escaneado correctamente',
-      message: 'Se le redirigirá a la pagina de asistencia',
+      message: 'Gracias por usar nuestra app',
       buttons: [
         {
           text: 'Vale',
           role: 'cancel',
           handler: (data) => {
-            this.navCtrl.navigateRoot('/asistencia');
+            this.navCtrl.navigateRoot('tabs/qr');
           }
         }
       ]
@@ -48,34 +56,36 @@ async presentAlert() {
  
   
 
-  StartScanning(){
-
-  
+  startScanning() {
     // Optionally request the permission early
-    this.qr.prepare()
-    .then((status: QRScannerStatus) => {
-       if (status.authorized) {
-         // camera permission was granted
-         this.qr.show();
-         document.getElementsByTagName("body")[0].style.opacity = "0";
-         this.qr.scan().subscribe((val)=>{
-           alert(val);
-           document.getElementsByTagName("body")[0].style.opacity = "0";
-         })    
-    
-       } else if (status.denied) {
-         // camera permission was permanently denied
-         // you must use QRScanner.openSettings() method to guide the user to the settings page
-         // then they can grant the permission from there
-       } else {
-         // permission was denied, but not permanently. You can ask for permission again at a later time.
-       }
-    })
-    .catch((e: any) => console.log('Error is', e));
-    
-    } 
+    this.qr.prepare().
+      then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          this.qr.show();
+          this.scanSub = document.getElementsByTagName('body')[0].style.opacity = '0';
+          debugger
+          this.scanSub = this.qr.scan()
+            .subscribe((textFound: string) => {
+              document.getElementsByTagName('body')[0].style.opacity = '1';
+              this.qr.hide();
+              this.scanSub.unsubscribe();
+
+              this.qrText = textFound;
+            }, (err) => {
+              alert(JSON.stringify(err));
+            });
+            this.presentAlert();
+        } else if (status.denied) {
+        } else {
+
+        }
+      })
+      .catch((e: any) => console.log('Error is', e));
+  }
 
 }
+
+
 
   
 
