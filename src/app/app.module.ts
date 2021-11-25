@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
@@ -13,7 +13,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },QRScanner],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },QRScanner,SocialSharing],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

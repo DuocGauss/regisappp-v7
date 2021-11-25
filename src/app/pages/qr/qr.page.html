@@ -15,7 +15,8 @@
 
 <div class="ion-padding">
         <ion-button color="warning" (click)="startScanning()" expand="full">Escanear</ion-button>
-        <p *ngIf="qrText">Datos del QR: {{ qrText }}</p>
+        <ion-input  [(ngModel)]="qrText"></ion-input>
+        <ion-button color="warning" (click)="abrirMenu(qrText)"  expand="full">Enviar v1</ion-button>
     </div>
 
 </ion-content>

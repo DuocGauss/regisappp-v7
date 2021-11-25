@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-
+import { ActionSheetController } from '@ionic/angular';
 import { AlertController, NavController } from '@ionic/angular';
 import { Platform } from '@ionic/angular'
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-qr',
@@ -20,7 +20,9 @@ export class QrPage  {
     public platform: Platform,
     private qr: QRScanner,
     private alertController:AlertController, 
-    private navCtrl:NavController
+    private navCtrl:NavController,
+    public actionSheetController: ActionSheetController,
+    private socialSharing:SocialSharing
   ) {
     this.platform.backButton.subscribeWithPriority(0, () => {
       document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -81,6 +83,40 @@ async presentAlert() {
         }
       })
       .catch((e: any) => console.log('Error is', e));
+  }
+
+  compartir()
+  {
+    this.socialSharing.share('Asistencia: ' + this.qrText);
+  }
+
+  async abrirMenu()
+  {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Acciones',
+      //cssClass: 'my-custom-class',
+      buttons: [
+        {
+        text: 'Compartir',
+        icon: 'share-social',
+        handler: () => {
+          this.compartir();
+        }
+      },
+      {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+
   }
 
 }
