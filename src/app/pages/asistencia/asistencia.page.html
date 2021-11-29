@@ -8,23 +8,19 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-<form #formulario="ngForm" (ngSubmit)="onSubmit()">
-  <ion-item>
-    <ion-label position="floating" class="animate__animated animate__fadeIn">Nombre asignatura</ion-label>
-    <ion-input required name="username" type="text" class="animate__animated animate__fadeIn" [(ngModel)]="register.nombre"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating" class="animate__animated animate__fadeIn">Sección</ion-label>
-    <ion-input required name="username" type="text" class="animate__animated animate__fadeIn" [(ngModel)]="register.seccion"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating" class="animate__animated animate__fadeIn">Fecha</ion-label>
-    <ion-input required name="password" class="animate__animated animate__fadeIn" type="text" [(ngModel)]="register.fecha"></ion-input>
-  </ion-item>
-  <ion-button expand="block" color="warning" class="animate__animated animate__fadeInUp" type="submit" [disabled]="formulario.invalid" (click)="presentAlert()">
-    Enviar
-  </ion-button>
-</form>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="datalocalservice.qrs.length===0" class="ion-padding nohay">
+    <p class="animate__animated animate__fadeInUp">No tienes Favoritos Guardados</p>
+  </div>
+
+
+  <app-meals
+            [enFav]="true" 
+            *ngIf="datalocalservice.qrs.length>0" 
+            [meals]="datalocalservice.qrs">
+  </app-meals>
+
 
 </ion-content>
 

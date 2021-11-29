@@ -4,6 +4,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { Platform } from '@ionic/angular'
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Storage } from '@ionic/storage-angular'
 
 @Component({
   selector: 'app-qr',
@@ -13,7 +14,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 export class QrPage  {
 
   scanSub: any;
-  qrText: string;
+  
 
 
   constructor(
@@ -22,7 +23,8 @@ export class QrPage  {
     private alertController:AlertController, 
     private navCtrl:NavController,
     public actionSheetController: ActionSheetController,
-    private socialSharing:SocialSharing
+    private socialSharing:SocialSharing,
+    private storage:Storage
   ) {
     this.platform.backButton.subscribeWithPriority(0, () => {
       document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -55,7 +57,7 @@ async presentAlert() {
 
   
    
- 
+  public qrText: string[] = [];
   
 
   startScanning() {
@@ -67,15 +69,13 @@ async presentAlert() {
           this.scanSub = document.getElementsByTagName('body')[0].style.opacity = '0';
           debugger
           this.scanSub = this.qr.scan()
-            .subscribe((textFound: string) => {
+            .subscribe((textFound) => {
               document.getElementsByTagName('body')[0].style.opacity = '1';
               this.qr.hide();
               this.scanSub.unsubscribe();
-
-              this.qrText = textFound;
-            }, (err) => {
-              alert(JSON.stringify(err));
+              this.qrText.push(textFound);
             });
+            this.guardar(); 
             this.presentAlert();
         } else if (status.denied) {
         } else {
@@ -118,6 +118,16 @@ async presentAlert() {
     console.log('onDidDismiss resolved with role', role);
 
   }
+
+
+  async guardar()
+  {
+
+    //coleccion temporal y vaciar datos encima
+    //agrgar nuevo escaneo a la coleccion temporal
+    await this.storage.set('Datos QR', this.qrText);
+    
+  } 
 
 }
 
