@@ -9,17 +9,7 @@
 
 <ion-content class="ion-padding">
 
-<ion-content [fullscreen]="true">
-  <div *ngIf="datalocalservice.qrs.length===0" class="ion-padding nohay">
-    <p class="animate__animated animate__fadeInUp">No tienes Favoritos Guardados</p>
-  </div>
 
-
-  <app-meals
-            [enFav]="true" 
-            *ngIf="datalocalservice.qrs.length>0" 
-            [meals]="datalocalservice.qrs">
-  </app-meals>
 
 
 </ion-content>

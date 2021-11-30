@@ -9,10 +9,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'sumapage',
-        loadChildren: () => import('../sumapage/sumapage.module').then( m => m.SumapagePageModule)
-      },
-      {
         path: 'home',
         loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
       },
